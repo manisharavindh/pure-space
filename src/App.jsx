@@ -1,91 +1,51 @@
 import React, { useState, useEffect } from 'react';
-import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
-import { ArrowUpRight, Menu, X } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { ArrowRight, Menu, X, ChevronLeft, ChevronRight } from 'lucide-react';
 
-const fadeInUp = {
-  hidden: { opacity: 0, y: 50 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.9, ease: [0.16, 1, 0.3, 1] } }
+const fadeUpVariant = {
+  hidden: { opacity: 0, y: 30 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } }
 };
 
-const staggerContainer = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.15
-    }
-  }
-};
-
-const Header = () => {
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+const Navbar = () => {
+  const [isOpen, setIsOpen] = useState(false);
 
   return (
     <>
-      <header className={`fixed top-0 z-50 w-full transition-all duration-500 border-b ${isScrolled ? 'bg-pure-black/90 backdrop-blur-xl' : 'bg-transparent border-b border-transparent'}`}>
-        <div className="max-w-[1920px] mx-auto border-x border-pure-border mx-auto bg-transparent">
-          <div className="flex h-20 items-center justify-between px-6 lg:px-12 border-b border-pure-border/0 transition-colors duration-500">
-            <a href="#" className="font-serif text-2xl tracking-wider text-pure-grey z-50 shrink-0">
-              PureSpace
-            </a>
+      <nav className="fixed w-full top-0 z-50 bg-[#EAE8E3]/90 backdrop-blur-md px-8 py-6 flex justify-between items-center border-b border-hairline transition-colors">
+        <div className="font-serif text-xl tracking-wide">PURE SPACE.</div>
 
-            <nav className="hidden md:flex gap-10 text-[11px] uppercase tracking-[0.25em] text-earth-tone">
-              {['Work', 'Studio', 'Services', 'Contact'].map((item) => (
-                <a key={item} href={`#${item.toLowerCase()}`} className="group relative transition-colors hover:text-pure-grey py-2">
-                  {item}
-                  <span className="absolute bottom-0 left-0 h-[1px] w-0 bg-pure-grey transition-all duration-500 group-hover:w-full"></span>
-                </a>
-              ))}
-            </nav>
-
-            <button
-              className="md:hidden z-50 text-pure-grey p-2"
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            >
-              {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-            </button>
-          </div>
+        {/* Desktop Links */}
+        <div className="hidden md:flex space-x-12 text-[10px] tracking-[0.2em] font-medium">
+          <a href="#about" className="hover:opacity-60 transition-opacity">ABOUT</a>
+          <a href="#work" className="hover:opacity-60 transition-opacity">WORK</a>
+          <a href="#awards" className="hover:opacity-60 transition-opacity">AWARDS</a>
+          <a href="#blog" className="hover:opacity-60 transition-opacity">BLOG</a>
         </div>
-      </header>
 
-      {/* Mobile Menu Overlay */}
+        <div className="hidden md:block text-[10px] tracking-[0.2em] font-medium cursor-pointer hover:opacity-60 transition-opacity">
+          CONTACT
+        </div>
+
+        {/* Mobile Toggle */}
+        <button className="md:hidden" onClick={() => setIsOpen(!isOpen)}>
+          {isOpen ? <X size={24} /> : <Menu size={24} />}
+        </button>
+      </nav>
+
       <AnimatePresence>
-        {mobileMenuOpen && (
+        {isOpen && (
           <motion.div
-            initial={{ opacity: 0, y: "-100%" }}
+            initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: "-100%" }}
-            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-            className="fixed inset-0 z-40 bg-pure-black flex flex-col items-center justify-center border-x border-pure-border max-w-[1920px] mx-auto"
+            exit={{ opacity: 0, y: -20 }}
+            className="fixed inset-0 z-40 bg-[#EAE8E3] pt-24 px-8 flex flex-col space-y-8 text-center"
           >
-            <nav className="flex flex-col gap-12 text-center">
-              {['Work', 'Studio', 'Services', 'Contact'].map((item, i) => (
-                <motion.a
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.3 + (i * 0.1), duration: 0.5 }}
-                  key={item}
-                  href={`#${item.toLowerCase()}`}
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="font-serif text-5xl text-pure-grey hover:text-white transition-colors"
-                >
-                  {item}
-                </motion.a>
-              ))}
-            </nav>
-            <div className="absolute bottom-12 flex flex-col items-center gap-4">
-              <span className="w-[1px] h-12 bg-pure-border"></span>
-              <p className="text-xs uppercase tracking-[0.3em] text-earth-tone">Menu</p>
-            </div>
+            <a href="#about" onClick={() => setIsOpen(false)} className="text-2xl font-serif tracking-widest">ABOUT</a>
+            <a href="#work" onClick={() => setIsOpen(false)} className="text-2xl font-serif tracking-widest">WORK</a>
+            <a href="#awards" onClick={() => setIsOpen(false)} className="text-2xl font-serif tracking-widest">AWARDS</a>
+            <a href="#blog" onClick={() => setIsOpen(false)} className="text-2xl font-serif tracking-widest">BLOG</a>
+            <a href="#contact" onClick={() => setIsOpen(false)} className="text-2xl font-serif tracking-widest">CONTACT</a>
           </motion.div>
         )}
       </AnimatePresence>
@@ -94,117 +54,126 @@ const Header = () => {
 };
 
 const Hero = () => {
-  const { scrollYProgress } = useScroll();
-  const y1 = useTransform(scrollYProgress, [0, 1], ['0%', '15%']);
-  const y2 = useTransform(scrollYProgress, [0, 1], ['0%', '-15%']);
-
   return (
-    <section className="pt-20 min-h-[90vh] flex flex-col border-b border-pure-border bg-pure-black relative overflow-hidden">
-      <div className="flex-1 grid grid-cols-1 lg:grid-cols-2">
-        {/* Left Column (Image 1 and Bottom Text) */}
-        <div className="flex flex-col relative">
-          <div className="p-8 md:p-16 lg:p-24 relative z-10 w-full h-full lg:h-[70vh]">
-            <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }} className="w-full h-full relative overflow-hidden shadow-2xl">
-              <motion.img style={{ y: y1 }} src="/hero_1.png" className="absolute -top-[10%] -left-[10%] w-[120%] h-[120%] object-cover" alt="Interior Details" />
-            </motion.div>
-          </div>
+    <section className="pt-32 px-8 min-h-screen pb-20">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-8 h-full">
 
-          {/* Left Column Bottom Text Area */}
-          <div className="px-8 md:px-16 lg:px-24 pb-16 flex flex-col gap-6 mt-auto">
-            <motion.h4 initial="hidden" animate="visible" variants={fadeInUp} className="text-[10px] tracking-[0.2em] uppercase text-pure-grey font-medium">
-              Interior Architecture
-            </motion.h4>
-            <motion.p initial="hidden" animate="visible" variants={fadeInUp} className="max-w-[280px] text-xs text-earth-tone leading-relaxed font-light">
-              We design minimalist environments focused on essentialism, organic materiality, and absolute quiet luxury.
+        {/* Left Column */}
+        <motion.div
+          initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUpVariant}
+          className="flex flex-col justify-end pb-12 order-2 md:order-1"
+        >
+          <div className="w-full max-w-sm mb-12">
+            <img
+              src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?q=80&w=800&auto=format&fit=crop"
+              alt="Minimalist interior"
+              className="w-full h-[40vh] md:h-[30vh] object-cover mb-8"
+            />
+            <h3 className="text-xs tracking-[0.2em] font-semibold mb-3">LUXURY & INTIMACY</h3>
+            <p className="text-sm leading-relaxed opacity-80">
+              Transforming spaces into deeply personal sanctuaries. Our approach blends raw materials with refined geometry to create environments that breathe.
+            </p>
+          </div>
+        </motion.div>
+
+        {/* Right Column */}
+        <div className="flex flex-col order-1 md:order-2 h-full">
+          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUpVariant} className="mb-4 mt-8 md:mt-0">
+            <h1 className="text-5xl md:text-[8rem] leading-[0.9] font-serif uppercase tracking-tight">PURE<br />SPACE.</h1>
+            <p className="text-[10px] tracking-[0.2em] mt-6 md:mt-2 opacity-70">COSTA MESA — 2007</p>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 1 }}
+            viewport={{ once: true }}
+            className="flex-1 relative mt-12 w-full max-w-lg md:ml-auto"
+          >
+            {/* Background UI Element */}
+            <div className="absolute -left-12 md:-left-24 top-1/4 h-[120%] w-[1px] bg-gray-300 pointer-events-none hidden md:block">
+              <div className="absolute left-1/2 -translate-x-1/2 top-1/3 w-20 h-20 rounded-full border border-gray-300" />
+            </div>
+
+            <img
+              src="https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?q=80&w=800&auto=format&fit=crop"
+              alt="Architectural detail"
+              className="w-full h-[60vh] object-cover"
+            />
+          </motion.div>
+        </div>
+
+      </div>
+    </section>
+  );
+};
+
+const About = () => {
+  return (
+    <section id="about" className="px-8 py-24 border-t border-hairline">
+      <div className="grid grid-cols-1 md:grid-cols-12 gap-12">
+        <motion.div
+          initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUpVariant}
+          className="md:col-span-4"
+        >
+          <h2 className="text-6xl md:text-8xl font-serif">ABOUT</h2>
+        </motion.div>
+
+        <div className="md:col-span-8 flex flex-col justify-center">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mb-12">
+            <motion.p initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUpVariant} className="text-lg md:text-2xl font-medium leading-snug">
+              We believe architecture should be felt before it is seen. A profound dialogue between light, material, and human emotion.
+            </motion.p>
+            <motion.p initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUpVariant} className="text-sm opacity-70 leading-relaxed md:pt-2">
+              Founded in 2007 in Costa Mesa, California, PureSpace Studio emerged from a desire to strip away the superfluous. Our multidisciplinary team works across residential, commercial, and gallery spaces, bringing a rigorous focus on craftsmanship and proportion to every project.
             </motion.p>
           </div>
+          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={{ hidden: { opacity: 0 }, visible: { opacity: 1, transition: { delay: 0.3 } } }}>
+            <button className="flex items-center space-x-4 border border-[#1C1B1A]/30 rounded-full px-6 py-3 text-xs tracking-[0.2rem] hover:bg-[#1C1B1A] hover:text-[#EAE8E3] hover:border-transparent transition-all duration-300">
+              <span>LEARN MORE</span>
+              <ArrowRight size={14} />
+            </button>
+          </motion.div>
         </div>
-
-        {/* Right Column (Top Text and offset Image 2) */}
-        <div className="flex flex-col lg:border-l border-pure-border relative">
-          <div className="px-8 md:px-16 lg:px-24 pt-16 lg:pt-32 relative z-20">
-            <motion.div initial="hidden" animate="visible" variants={staggerContainer}>
-              <motion.h1 variants={fadeInUp} className="font-serif text-6xl md:text-7xl lg:text-[7rem] leading-[1.05] text-pure-grey tracking-tight mb-8">
-                PURE<br />SPACE.
-              </motion.h1>
-              <motion.p variants={fadeInUp} className="text-[10px] tracking-[0.2em] uppercase text-earth-tone font-mono">
-                Stockholm — 2024
-              </motion.p>
-            </motion.div>
-          </div>
-
-          <div className="p-8 md:p-16 lg:p-24 lg:pl-0 mt-8 lg:mt-32 relative z-10 w-full lg:w-[130%] lg:-ml-[30%] h-[50vh] lg:h-[60vh]">
-            <motion.div initial={{ opacity: 0, x: 50 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 1.5, delay: 0.2, ease: [0.16, 1, 0.3, 1] }} className="w-full h-full relative overflow-hidden shadow-2xl border border-pure-border/20">
-              <motion.img style={{ y: y2 }} src="/hero_2.png" className="absolute -top-[10%] -left-[10%] w-[120%] h-[120%] object-cover" alt="Atmospheric Textures" />
-
-              {/* Decorative floating circle line from reference */}
-              <div className="absolute -left-16 bottom-[20%] w-32 h-32 rounded-full border-[0.5px] border-white/20 z-20"></div>
-            </motion.div>
-          </div>
-        </div>
-      </div>
-
-      {/* Persistent Bottom 'Scroll Down' bar from reference */}
-      <div className="w-full border-t border-pure-border px-8 md:px-16 lg:px-24 py-8 flex justify-between items-center bg-pure-black relative z-30 flex-none hidden lg:flex">
-        <p className="text-[10px] tracking-[0.25em] uppercase text-earth-tone">Scroll Down</p>
-        <div className="w-px h-12 bg-pure-border absolute left-1/2 -top-12"></div>
       </div>
     </section>
   );
 };
 
-const SelectedWorks = () => {
+const Work = () => {
   const projects = [
-    { name: "Lumina Residence", location: "Stockholm", year: "2024", img: "/work_1.png" },
-    { name: "The Alabaster Gallery", location: "New York", year: "2023", img: "/work_2.png" },
-    { name: "Villa Oakhaven", location: "Copenhagen", year: "2023", img: "/work_3.png" }
+    { name: "COASTAL RESIDENCE", loc: "LAGUNA BEACH", img: "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?q=80&w=800&auto=format&fit=crop" },
+    { name: "THE ATELIER", loc: "LOS ANGELES", img: "https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=800&auto=format&fit=crop" },
+    { name: "WABI-SABI LOFT", loc: "NEW YORK", img: "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?q=80&w=800&auto=format&fit=crop" },
   ];
 
   return (
-    <section id="work" className="border-b border-pure-border bg-pure-black scroll-mt-20">
-      <div className="grid grid-cols-1 lg:grid-cols-12 border-b border-pure-border">
-        <div className="lg:col-span-4 p-8 md:p-16 lg:p-24 lg:border-r border-pure-border flex items-center bg-pure-black">
-          <motion.h2
-            initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={fadeInUp}
-            className="font-serif text-4xl md:text-5xl text-pure-grey"
-          >
-            Selected<br />Works
-          </motion.h2>
-        </div>
-        <div className="lg:col-span-8 p-8 md:p-16 lg:p-24 flex items-center bg-pure-border/5 border-t lg:border-t-0 border-pure-border">
-          <motion.p
-            initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={fadeInUp}
-            className="max-w-2xl text-earth-tone text-xl leading-relaxed font-light"
-          >
-            A curated selection of our recent architectural implementations.
-            Focused on materiality, acoustic comfort, and spatial fluidity. Every project is a study in reduction.
-          </motion.p>
+    <section id="work" className="px-8 py-24 border-t border-hairline">
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-16 gap-6">
+        <h2 className="text-sm tracking-[0.2em] font-semibold invisible md:visible">SELECTED WORKS</h2>
+        <div className="flex space-x-6 text-[10px] tracking-[0.15em] opacity-60">
+          <span className="cursor-pointer text-[#1C1B1A] font-semibold opacity-100 border-b border-[#1C1B1A]">FEATURED PROJECTS</span>
+          <span className="cursor-pointer hover:opacity-100 transition-opacity">EXHIBITIONS</span>
+          <span className="cursor-pointer hover:opacity-100 transition-opacity">COLLABORATIONS</span>
         </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3">
-        {projects.map((project, idx) => (
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        {projects.map((proj, idx) => (
           <motion.div
-            initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-50px" }}
-            variants={fadeInUp}
             key={idx}
-            className={`group relative aspect-square lg:aspect-[3/4] lg:border-r border-pure-border last:border-r-0 overflow-hidden cursor-pointer ${idx !== projects.length - 1 ? 'border-b lg:border-b-0' : ''}`}
+            initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUpVariant}
+            className="group cursor-pointer"
           >
-            <div className="absolute inset-0 bg-pure-black/40 z-10 transition-colors duration-700 group-hover:bg-transparent"></div>
-            <img src={project.img} alt={project.name} className="w-full h-full object-cover transition-transform duration-[2s] ease-[0.16,1,0.3,1]" />
-
-            {/* Interactive hover overlay */}
-            <div className="absolute inset-0 z-20 bg-gradient-to-t from-pure-black/90 via-pure-black/20 to-transparent opacity-100 lg:opacity-0 transition-opacity duration-700 lg:group-hover:opacity-100 flex flex-col justify-end p-8 md:p-12">
-              <div className="transform lg:translate-y-8 transition-transform duration-700 ease-out lg:group-hover:translate-y-0">
-                <div className="flex flex-col gap-2">
-                  <h3 className="font-serif text-3xl md:text-4xl text-pure-grey mb-2">{project.name}</h3>
-                  <div className="flex justify-between items-center border-t border-pure-border/50 pt-4 mt-2">
-                    <p className="text-[10px] tracking-[0.2em] uppercase text-earth-tone">{project.location}</p>
-                    <div className="text-[10px] tracking-[0.2em] text-earth-tone font-mono">{project.year}</div>
-                  </div>
-                </div>
-              </div>
+            <div className="overflow-hidden mb-6 aspect-[4/3]">
+              <img
+                src={proj.img}
+                alt={proj.name}
+                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+              />
             </div>
+            <h3 className="text-xs tracking-[0.15em] font-semibold mb-1">{proj.name}</h3>
+            <p className="text-[10px] tracking-widest opacity-60">— {proj.loc}</p>
           </motion.div>
         ))}
       </div>
@@ -212,138 +181,149 @@ const SelectedWorks = () => {
   );
 };
 
-const Philosophy = () => (
-  <section id="studio" className="border-b border-pure-border bg-pure-black scroll-mt-20">
-    <div className="grid grid-cols-1 lg:grid-cols-2">
-      <div className="p-8 md:p-16 lg:p-24 lg:border-r border-pure-border flex flex-col justify-center min-h-[50vh] bg-pure-black">
-        <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={fadeInUp}>
-          <div className="mb-16">
-            <span className="w-12 h-[1px] bg-pure-border block mb-6"></span>
-            <p className="text-[10px] uppercase tracking-[0.3em] text-earth-tone">Studio Philosophy</p>
-          </div>
-          <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl text-pure-grey leading-[1.15] max-w-xl pr-8">
-            We believe in the power of subtraction. Removing the unessential to reveal the profound.
-          </h2>
-        </motion.div>
-      </div>
-      <div className="p-8 md:p-16 lg:p-24 flex flex-col justify-center gap-12 bg-pure-border/[0.03] border-t lg:border-t-0 border-pure-border">
-        <motion.p initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-50px" }} variants={fadeInUp} className="text-xl md:text-2xl text-earth-tone leading-relaxed max-w-lg font-light">
-          PureSpace is an international design studio founded on the principles of critical regionalism and phenomenological architecture. We don't just design spaces; we orchestrate light, shape acoustics, and curate silence.
-        </motion.p>
-        <motion.p initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-50px" }} variants={fadeInUp} className="text-xl md:text-2xl text-earth-tone leading-relaxed max-w-lg font-light">
-          Our approach favors natural, aging materials—stone, raw timber, lime wash—that develop patina and tell a story over time. Luxury, we believe, is not ostentation, but peace.
-        </motion.p>
-      </div>
-    </div>
-  </section>
-);
+const Awards = () => {
+  const [hoveredIndex, setHoveredIndex] = useState(null);
+  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
 
-const Services = () => {
-  const servicesList = [
-    { title: "Interior Architecture", desc: "Holistic spatial planning and structural modifications to optimize light and flow workflows. Creating seamless transitions between interior and exterior." },
-    { title: "Bespoke Furniture", desc: "Custom-designed pieces crafted by local artisans using ethically sourced materials. Each artifact is uniquely tailored to the spatial context." },
-    { title: "Lighting Design", desc: "Curated illumination strategies to enhance mood, highlight textures, and simulate natural rhythms. Utilizing both natural and artificial light as sculptural elements." },
-    { title: "Art Curation", desc: "Procurement and placement of contemporary pieces that complement the architectural narrative, adding layers of cultural resonance to the space." }
+  const handleMouseMove = (e) => {
+    setMousePos({ x: e.clientX, y: e.clientY });
+  };
+
+  const awards = [
+    { year: "2026", name: "AIA DESIGN EXCELLENCE", category: "RESIDENTIAL", img: "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?q=80&w=400&auto=format&fit=crop" },
+    { year: "2025", name: "INTERIOR MOTIVES AWARD", category: "COMMERCIAL", img: "https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=400&auto=format&fit=crop" },
+    { year: "2024", name: "GLOBAL ARCHITECTURE PRIZE", category: "EXHIBITION", img: "https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?q=80&w=400&auto=format&fit=crop" },
+    { year: "2023", name: "MINIMALIST OF THE YEAR", category: "STUDIO", img: "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?q=80&w=400&auto=format&fit=crop" },
   ];
 
   return (
-    <section id="services" className="border-b border-pure-border grid grid-cols-1 lg:grid-cols-12 bg-pure-black scroll-mt-20">
-      <div className="lg:col-span-4 p-8 md:p-16 lg:p-24 lg:border-r border-pure-border flex flex-col justify-between">
-        <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
-          <div className="mb-12">
-            <span className="w-12 h-[1px] bg-pure-border block mb-6"></span>
-            <p className="text-[10px] uppercase tracking-[0.3em] text-earth-tone">Capabilities</p>
-          </div>
-          <h2 className="font-serif text-5xl md:text-6xl text-pure-grey mb-8 lg:mb-16">Services</h2>
-          <p className="text-earth-tone text-lg max-w-xs font-light leading-relaxed">From concept to final curation, a seamless singular vision executed with precision.</p>
-        </motion.div>
-      </div>
-      <div className="lg:col-span-8 flex flex-col">
-        {servicesList.map((service, idx) => (
-          <motion.div
-            initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}
+    <section id="awards" className="px-8 py-32 border-t border-hairline relative" onMouseMove={handleMouseMove}>
+      <h2 className="text-6xl md:text-8xl font-serif mb-20">AWARDS</h2>
+
+      <div className="flex flex-col">
+        {awards.map((award, idx) => (
+          <div
             key={idx}
-            className="group flex flex-col lg:flex-row lg:items-center justify-between p-8 md:p-12 lg:p-16 border-t first:border-t lg:first:border-t-0 border-pure-border cursor-pointer hover:bg-pure-border/5 transition-colors duration-700"
+            className="group border-t border-hairline py-8 flex flex-col md:flex-row justify-between items-start md:items-center relative cursor-pointer"
+            onMouseEnter={() => setHoveredIndex(idx)}
+            onMouseLeave={() => setHoveredIndex(null)}
           >
-            <h3 className="font-serif text-3xl md:text-5xl text-pure-grey lg:w-5/12 mb-6 lg:mb-0 lg:group-hover:translate-x-6 transition-transform duration-700 ease-[0.16,1,0.3,1]">{service.title}</h3>
+            <span className="text-xs tracking-[0.2em] w-24 mb-2 md:mb-0 opacity-60">{award.year}</span>
+            <span className="text-lg md:text-2xl font-serif flex-1 group-hover:italic transition-all">{award.name}</span>
+            <span className="text-[10px] tracking-[0.2em] mt-2 md:mt-0 opacity-60">{award.category}</span>
+          </div>
+        ))}
+      </div>
 
-            {/* Mobile shows desc initially, Desktop hides and shows on hover */}
-            <div className="lg:w-6/12 overflow-hidden h-auto opacity-100 lg:h-0 lg:opacity-0 lg:group-hover:h-auto lg:group-hover:opacity-100 lg:group-hover:mt-4 transition-all duration-700 ease-in-out">
-              <p className="text-earth-tone text-lg leading-relaxed font-light">
-                {service.desc}
-              </p>
-            </div>
+      <AnimatePresence>
+        {hoveredIndex !== null && (
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.8 }}
+            transition={{ type: "spring", stiffness: 100, damping: 15 }}
+            className="fixed pointer-events-none z-50 hidden md:block"
+            style={{
+              top: mousePos.y,
+              left: mousePos.x,
+              x: "-50%",
+              y: "-50%",
+            }}
+          >
+            <img
+              src={awards[hoveredIndex].img}
+              alt="Award Project"
+              className="w-48 h-64 object-cover shadow-2xl"
+            />
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </section>
+  );
+};
 
-            <div className="hidden lg:flex items-center justify-center w-16 h-16 rounded-full border border-pure-border group-hover:bg-pure-grey group-hover:text-pure-black transition-all duration-700 shrink-0 ml-4 group-hover:-rotate-45">
-              <ArrowUpRight className="w-6 h-6" />
+const Blog = () => {
+  const posts = [
+    { title: "TIMELESS DESIGN: HOW WE APPROACH INTERIORS", date: "FEB 12, 2026", img: "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?q=80&w=800&auto=format&fit=crop" },
+    { title: "THE PSYCHOLOGY OF NEGATIVE SPACE", date: "JAN 28, 2026", img: "https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?q=80&w=800&auto=format&fit=crop" },
+    { title: "MATERIALITY: STONE, WOOD, AND STEEL", date: "JAN 10, 2026", img: "https://images.unsplash.com/photo-1600210491892-03e547b3eb6c?q=80&w=800&auto=format&fit=crop" },
+  ];
+
+  return (
+    <section id="blog" className="px-8 py-24 pb-32 border-t border-hairline">
+      <div className="flex justify-between items-center border-b border-hairline pb-8 mb-12">
+        <h2 className="text-2xl md:text-4xl font-serif">BLOG</h2>
+        <div className="flex space-x-4">
+          <button className="w-10 h-10 rounded-full border border-hairline flex items-center justify-center hover:bg-[#1C1B1A] hover:text-[#EAE8E3] transition-colors">
+            <ChevronLeft size={16} />
+          </button>
+          <button className="w-10 h-10 rounded-full border border-hairline flex items-center justify-center hover:bg-[#1C1B1A] hover:text-[#EAE8E3] transition-colors">
+            <ChevronRight size={16} />
+          </button>
+        </div>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+        {posts.map((post, idx) => (
+          <motion.div
+            key={idx}
+            initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUpVariant}
+            className="group cursor-pointer"
+          >
+            <div className="overflow-hidden mb-6 aspect-video">
+              <img
+                src={post.img}
+                alt={post.title}
+                className="w-full h-full object-cover grayscale opacity-80 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-700 group-hover:scale-105"
+              />
             </div>
+            <p className="text-[10px] tracking-widest opacity-60 mb-3">{post.date}</p>
+            <h3 className="text-sm font-semibold leading-relaxed w-11/12">{post.title}</h3>
           </motion.div>
         ))}
+      </div>
+
+      <div className="flex justify-end">
+        <button className="w-32 h-32 rounded-full border border-[#1C1B1A] flex items-center justify-center text-xs tracking-[0.2em] font-medium hover:bg-[#1C1B1A] hover:text-[#EAE8E3] transition-colors duration-500">
+          VIEW ALL
+        </button>
       </div>
     </section>
   );
 };
 
-const Footer = () => (
-  <footer id="contact" className="bg-pure-black pt-20 md:pt-32 pb-12 px-8 md:px-16 lg:px-24 grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-8 border-t border-pure-border">
-    <div className="lg:col-span-7 flex flex-col gap-16">
-      <motion.h2
-        initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}
-        className="font-serif text-6xl md:text-8xl lg:text-[9rem] text-pure-grey leading-[0.9]"
-      >
-        Let's<br /><span className="italic font-light text-earth-tone">discuss.</span>
-      </motion.h2>
-      <motion.a
-        initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}
-        href="mailto:hello@purespace.studio"
-        className="text-2xl md:text-4xl text-pure-grey hover:text-white transition-colors inline-flex items-center gap-6 w-fit group font-light"
-      >
-        hello@purespace.studio
-        <span className="w-16 h-[1px] bg-pure-border group-hover:w-32 group-hover:bg-white transition-all duration-700 ease-out"></span>
-      </motion.a>
-    </div>
-
-    <div className="lg:col-span-5 grid grid-cols-1 md:grid-cols-2 gap-12 lg:pl-16 mt-8 lg:mt-0">
-      <div className="flex flex-col gap-8">
-        <h4 className="uppercase tracking-[0.3em] text-pure-border text-[10px] font-medium">Location</h4>
-        <p className="text-earth-tone text-lg font-light leading-relaxed">Nyhavn 17<br />1051 Copenhagen<br />Denmark</p>
-      </div>
-
-      <div className="flex flex-col gap-8">
-        <h4 className="uppercase tracking-[0.3em] text-pure-border text-[10px] font-medium">Connect</h4>
-        <div className="flex flex-col gap-4">
-          {['Instagram', 'Pinterest', 'LinkedIn'].map((social) => (
-            <a key={social} href="#" className="text-earth-tone text-lg font-light hover:text-pure-grey transition-colors w-fit">{social}</a>
-          ))}
-        </div>
-      </div>
-    </div>
-
-    <div className="lg:col-span-12 mt-16 md:mt-32 pt-12 border-t border-pure-border flex flex-col md:flex-row justify-between items-start md:items-center gap-8 text-xs text-pure-border">
-      <p>&copy; {new Date().getFullYear()} PureSpace Architecture Studio. All rights reserved.</p>
-      <div className="flex gap-12">
-        <a href="#" className="hover:text-pure-grey transition-colors uppercase tracking-[0.2em]">Privacy</a>
-        <a href="#" className="hover:text-pure-grey transition-colors uppercase tracking-[0.2em]">Terms</a>
-      </div>
-    </div>
-  </footer>
-);
-
-function App() {
+const Footer = () => {
   return (
-    <div className="min-h-screen bg-pure-black text-pure-grey font-sans overflow-x-hidden selection:bg-pure-grey selection:text-pure-black">
-      <div className="max-w-[1920px] mx-auto border-x border-pure-border bg-pure-black relative shadow-[0_0_100px_rgba(0,0,0,0.8)]">
-        <Header />
-        <main>
-          <Hero />
-          <SelectedWorks />
-          <Philosophy />
-          <Services />
-        </main>
-        <Footer />
+    <footer className="px-8 pt-24 pb-12 border-t border-hairline flex flex-col md:flex-row justify-between items-end gap-12 md:gap-0">
+      <div className="w-full md:w-auto">
+        <p className="text-[10px] tracking-[0.2em] opacity-60 mb-4">FOR PROJECT INQUIRIES AND STUDIO VISITS</p>
+        <a href="mailto:hello@purespace.com" className="text-3xl md:text-7xl font-serif hover:opacity-60 transition-opacity break-words whitespace-normal">
+          HELLO@PURESPACE.COM
+        </a>
       </div>
+
+      <div className="flex flex-col items-start md:items-end w-full md:w-auto space-y-2 text-[10px] tracking-widest opacity-60 uppercase">
+        <p>© 2026 PURE SPACE.</p>
+        <p>COSTA MESA, CALIFORNIA</p>
+      </div>
+    </footer>
+  );
+};
+
+const App = () => {
+  return (
+    <div className="bg-[#EAE8E3] text-[#1C1B1A] min-h-screen overflow-x-hidden selection:bg-[#1C1B1A] selection:text-[#EAE8E3]">
+      <Navbar />
+      <main>
+        <Hero />
+        <About />
+        <Work />
+        <Awards />
+        <Blog />
+      </main>
+      <Footer />
     </div>
   );
-}
+};
 
 export default App;
