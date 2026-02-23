@@ -120,73 +120,118 @@ const Hero = () => {
 
 const About = () => {
   return (
-    <section id="about" className="px-8 py-24 border-t border-hairline">
-      <div className="grid grid-cols-1 md:grid-cols-12 gap-12">
-        <motion.div
-          initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUpVariant}
-          className="md:col-span-4"
-        >
-          <h2 className="text-6xl md:text-8xl font-serif">ABOUT</h2>
-        </motion.div>
+    <section id="about" className="px-6 md:px-8 py-16 md:py-24 lg:py-32 relative">
+      <motion.div
+        initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUpVariant}
+        className="mb-12 md:mb-16 lg:mb-20"
+      >
+        <h2 className="text-4xl md:text-5xl lg:text-5xl font-serif font-light text-[#1C1B1A]">ABOUT</h2>
+      </motion.div>
 
-        <div className="md:col-span-8 flex flex-col justify-center">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mb-12">
-            <motion.p initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUpVariant} className="text-lg md:text-2xl font-medium leading-snug">
-              We believe architecture should be felt before it is seen. A profound dialogue between light, material, and human emotion.
-            </motion.p>
-            <motion.p initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUpVariant} className="text-sm opacity-70 leading-relaxed md:pt-2">
-              Founded in 2007 in Costa Mesa, California, PureSpace Studio emerged from a desire to strip away the superfluous. Our multidisciplinary team works across residential, commercial, and gallery spaces, bringing a rigorous focus on craftsmanship and proportion to every project.
-            </motion.p>
-          </div>
-          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={{ hidden: { opacity: 0 }, visible: { opacity: 1, transition: { delay: 0.3 } } }}>
-            <button className="flex items-center space-x-4 border border-[#1C1B1A]/30 rounded-full px-6 py-3 text-xs tracking-[0.2rem] hover:bg-[#1C1B1A] hover:text-[#EAE8E3] hover:border-transparent transition-all duration-300">
-              <span>LEARN MORE</span>
-              <ArrowRight size={14} />
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-24 w-full">
+        <div className="flex flex-col justify-between">
+          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUpVariant} className="flex flex-col gap-8 md:gap-10">
+            <p className="text-xl md:text-2xl lg:text-3xl font-serif leading-snug text-[#1C1B1A] font-medium">
+              We create bold, refined and inspiring spaces.
+            </p>
+            <p className="text-sm md:text-base leading-relaxed text-[#1C1B1A]/80">
+              For over a decade, we've been at the forefront of award-winning interior design, blending the rich architectural heritage of South India with contemporary minimalism. Our approach combines meticulous attention to detail with a deep understanding of local materiality and natural light. We believe that truly exceptional interiors emerge from the careful balance of form, function, and emotion.
+            </p>
+            <p className="text-xs md:text-sm leading-relaxed text-[#1C1B1A]/60">
+              Based in Coimbatore, Tamil Nadu, our studio works with discerning clients who value sophistication and artistry in every detail. We believe that exceptional design transcends trends and creates a lasting impact.
+            </p>
+          </motion.div>
+
+          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={{ hidden: { opacity: 0 }, visible: { opacity: 1, transition: { delay: 0.3 } } }} className="mt-6">
+            <button className="border border-[#1C1B1A]/20 px-10 py-4 w-full sm:w-auto text-[10px] tracking-[0.2em] font-bold text-[#1C1B1A] uppercase hover:bg-[#1C1B1A] hover:text-[#EAE8E3] transition-colors duration-300">
+              LEARN MORE
             </button>
           </motion.div>
         </div>
+
+        <motion.div
+          initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUpVariant}
+          className="h-[250px] md:h-auto lg:h-[400px] w-full"
+        >
+          <img
+            src="https://cdn.pixabay.com/photo/2021/08/07/08/50/staircase-6528080_1280.jpg"
+            alt="Interior Studio Design Theme"
+            className="w-full h-full object-cover contrast-[0.8] brightness-[0.85] sepia-[0.1]"
+          />
+        </motion.div>
       </div>
     </section>
   );
 };
 
 const Work = () => {
-  const projects = [
-    { name: "COASTAL RESIDENCE", loc: "LAGUNA BEACH", img: "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?q=80&w=800&auto=format&fit=crop" },
-    { name: "THE ATELIER", loc: "LOS ANGELES", img: "https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=800&auto=format&fit=crop" },
-    { name: "WABI-SABI LOFT", loc: "NEW YORK", img: "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?q=80&w=800&auto=format&fit=crop" },
+  const [activeTab, setActiveTab] = useState("FEATURED PROJECTS");
+
+  const allProjects = [
+    { name: "COASTAL RESIDENCE", loc: "LAGUNA BEACH", category: "FEATURED PROJECTS", img: "https://images.unsplash.com/photo-1758801305879-00b65e76ae96?q=80&w=987&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" },
+    { name: "URBAN LOFT", loc: "NEWPORT BEACH", category: "FEATURED PROJECTS", img: "https://images.unsplash.com/photo-1675276902726-609a9489e806?q=80&w=995&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" },
+    { name: "PRIVATE ESTATE", loc: "COSTA MESA", category: "FEATURED PROJECTS", img: "https://images.unsplash.com/photo-1771830916709-be8695a09f96?q=80&w=987&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" },
+
+    { name: "SILENT FORMS", loc: "MILAN DESIGN WEEK", category: "EXHIBITIONS", img: "/images/project_2.png" },
+    { name: "THE WEIGHT OF LIGHT", loc: "VENICE", category: "EXHIBITIONS", img: "/images/project_3.png" },
+    { name: "MATERIAL TRUTHS", loc: "LONDON", category: "EXHIBITIONS", img: "/images/project_1.png" },
+
+    { name: "OAK & STONE", loc: "WITH LUNE STUDIO", category: "COLLABORATIONS", img: "/images/project_3.png" },
+    { name: "BRUTALIST PAVILION", loc: "WITH STUDIO X", category: "COLLABORATIONS", img: "/images/project_1.png" },
+    { name: "SERENE OBJECTS", loc: "WITH CRAFT CO.", category: "COLLABORATIONS", img: "/images/project_2.png" },
   ];
 
+  const filteredProjects = allProjects.filter((p) => p.category === activeTab);
+  const tabs = ["FEATURED PROJECTS", "EXHIBITIONS", "COLLABORATIONS"];
+
   return (
-    <section id="work" className="px-8 py-24 border-t border-hairline">
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-16 gap-6">
+    <section id="work" className="px-8 py-24 border-t border-hairline relative">
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-16 gap-6 relative">
         <h2 className="text-sm tracking-[0.2em] font-semibold invisible md:visible">SELECTED WORKS</h2>
         <div className="flex space-x-6 text-[10px] tracking-[0.15em] opacity-60">
-          <span className="cursor-pointer text-[#1C1B1A] font-semibold opacity-100 border-b border-[#1C1B1A]">FEATURED PROJECTS</span>
-          <span className="cursor-pointer hover:opacity-100 transition-opacity">EXHIBITIONS</span>
-          <span className="cursor-pointer hover:opacity-100 transition-opacity">COLLABORATIONS</span>
+          {tabs.map((tab) => (
+            <span
+              key={tab}
+              onClick={() => setActiveTab(tab)}
+              className={`cursor-pointer transition-all ${activeTab === tab
+                ? "text-[#1C1B1A] font-semibold opacity-100 border-b border-[#1C1B1A]"
+                : "hover:opacity-100"
+                }`}
+            >
+              {tab}
+            </span>
+          ))}
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-        {projects.map((proj, idx) => (
-          <motion.div
-            key={idx}
-            initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUpVariant}
-            className="group cursor-pointer"
-          >
-            <div className="overflow-hidden mb-6 aspect-[4/3]">
-              <img
-                src={proj.img}
-                alt={proj.name}
-                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-              />
-            </div>
-            <h3 className="text-xs tracking-[0.15em] font-semibold mb-1">{proj.name}</h3>
-            <p className="text-[10px] tracking-widest opacity-60">— {proj.loc}</p>
-          </motion.div>
-        ))}
-      </div>
+      <motion.div layout className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <AnimatePresence mode="popLayout">
+          {filteredProjects.map((proj, idx) => (
+            <motion.div
+              layout
+              key={proj.name + idx}
+              initial={{ opacity: 0, scale: 0.95, filter: "blur(4px)" }}
+              animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
+              exit={{ opacity: 0, scale: 0.95, filter: "blur(4px)", transition: { duration: 0.2 } }}
+              transition={{ duration: 0.5, delay: idx * 0.1 }}
+              className="group cursor-pointer"
+            >
+              <div className="overflow-hidden mb-6 aspect-[4/3]">
+                <img
+                  src={proj.img}
+                  alt={proj.name}
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                />
+              </div>
+              <div className="text-[10px] tracking-[0.18em] font-bold uppercase text-[#1C1B1A]/80 flex whitespace-nowrap overflow-hidden text-ellipsis">
+                <span>{proj.name}</span>
+                <span className="mx-2">—</span>
+                <span>{proj.loc}</span>
+              </div>
+            </motion.div>
+          ))}
+        </AnimatePresence>
+      </motion.div>
     </section>
   );
 };
@@ -200,27 +245,31 @@ const Awards = () => {
   };
 
   const awards = [
-    { year: "2026", name: "AIA DESIGN EXCELLENCE", category: "RESIDENTIAL", img: "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?q=80&w=400&auto=format&fit=crop" },
-    { year: "2025", name: "INTERIOR MOTIVES AWARD", category: "COMMERCIAL", img: "https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=400&auto=format&fit=crop" },
-    { year: "2024", name: "GLOBAL ARCHITECTURE PRIZE", category: "EXHIBITION", img: "https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?q=80&w=400&auto=format&fit=crop" },
-    { year: "2023", name: "MINIMALIST OF THE YEAR", category: "STUDIO", img: "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?q=80&w=400&auto=format&fit=crop" },
+    { year: "2026", name: "INTERIOR DESIGN BEST OF YEAR", category: "RESIDENTIAL", img: "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?q=80&w=400&auto=format&fit=crop" },
+    { year: "2025", name: "ARCHITECTURE MASTERPRIZE", category: "GOLD WINNER", img: "https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=400&auto=format&fit=crop" },
+    { year: "2025", name: "AIA ORANGE COUNTY DESIGN EXCELLENCE", category: "INTERIOR ARCHITECTURE", img: "https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?q=80&w=400&auto=format&fit=crop" },
+    { year: "2024", name: "LUXE INTERIORS + DESIGN GOLD LIST", category: "FEATURED DESIGNER", img: "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?q=80&w=400&auto=format&fit=crop" },
+    { year: "2023", name: "ELLE DECOR A-LIST", category: "EMERGING TALENT", img: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=400&auto=format&fit=crop" },
+    { year: "2023", name: "IIDA SOUTHERN CALIFORNIA DESIGN AWARD", category: "RESIDENTIAL", img: "https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?q=80&w=400&auto=format&fit=crop" },
   ];
 
   return (
-    <section id="awards" className="px-8 py-32 border-t border-hairline relative" onMouseMove={handleMouseMove}>
-      <h2 className="text-6xl md:text-8xl font-serif mb-20">AWARDS</h2>
+    <section id="awards" className="px-8 py-32 relative" onMouseMove={handleMouseMove}>
+      <h2 className="text-4xl md:text-5xl lg:text-5xl font-serif mb-24 font-light text-[#1C1B1A]">AWARDS</h2>
 
-      <div className="flex flex-col">
+      <div className="flex flex-col border-t border-[#1C1B1A]/10">
         {awards.map((award, idx) => (
           <div
             key={idx}
-            className="group py-8 flex flex-col md:flex-row justify-between items-start md:items-center relative cursor-pointer"
+            className="award-element group py-6 md:py-8 flex flex-col md:flex-row justify-between items-start md:items-center relative cursor-pointer border-b border-[#1C1B1A]/10 hover:bg-[#1C1B1A]/[0.02] transition-colors"
             onMouseEnter={() => setHoveredIndex(idx)}
             onMouseLeave={() => setHoveredIndex(null)}
           >
-            <span className="text-xs tracking-[0.2em] w-24 mb-2 md:mb-0 opacity-60">{award.year}</span>
-            <span className="text-lg md:text-2xl font-serif flex-1 group-hover:italic transition-all">{award.name}</span>
-            <span className="text-[10px] tracking-[0.2em] mt-2 md:mt-0 opacity-60">{award.category}</span>
+            <div className="flex items-center w-full md:w-3/4">
+              <span className="text-xs font-semibold w-24 md:w-40">{award.year}</span>
+              <span className="text-[10px] md:text-xs tracking-[0.1em] md:tracking-[0.15em] font-semibold uppercase flex-1">{award.name}</span>
+            </div>
+            <span className="text-[10px] tracking-[0.2em] mt-3 md:mt-0 opacity-50 uppercase font-semibold">{award.category}</span>
           </div>
         ))}
       </div>

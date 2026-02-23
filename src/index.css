@@ -11,6 +11,7 @@
   html {
     scroll-behavior: smooth;
   }
+
   body {
     background-color: var(--color-stone);
     color: var(--color-charcoal);
@@ -18,15 +19,32 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
-  
-  h1, h2, h3, h4, h5, h6 {
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     font-family: var(--font-serif);
   }
 }
 
 @layer utilities {
   .border-hairline {
-    border-color: #d1d5db; /* gray-300 */
+    border-color: #d1d5db;
+    /* gray-300 */
     border-width: 1px;
   }
+}
+
+
+#about,
+#awards {
+  background-color: #C2BCB4;
+}
+
+.award-element {
+  padding-left: 1rem;
+  padding-right: 1rem;
 }
