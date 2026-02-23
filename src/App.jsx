@@ -13,7 +13,7 @@ const Navbar = () => {
   return (
     <>
       <nav className="fixed w-full top-0 z-50 bg-[#EAE8E3]/90 backdrop-blur-md px-8 py-6 flex justify-between items-center border-b border-hairline transition-colors">
-        <div className="font-serif text-xl tracking-wide">PURE SPACE.</div>
+        <div className="font-serif text-xl tracking-wide">PURESPACE.</div>
 
         {/* Desktop Links */}
         <div className="hidden md:flex space-x-12 text-[10px] tracking-[0.2em] font-medium">
@@ -55,32 +55,40 @@ const Navbar = () => {
 
 const Hero = () => {
   return (
-    <section className="pt-32 px-8 min-h-screen pb-20">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-8 h-full">
+    <section className="pt-[100px] md:pt-[120px] px-8 md:px-12 min-h-[100dvh] md:h-[100dvh] md:max-h-[100dvh] flex flex-col justify-between overflow-x-hidden md:overflow-hidden relative">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-x-16 w-full flex-1 min-h-0 pb-8 md:pb-8 lg:pb-12 mt-4 md:mt-0">
 
         {/* Left Column */}
-        <motion.div
-          initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUpVariant}
-          className="flex flex-col justify-end pb-12 order-2 md:order-1"
-        >
-          <div className="w-full max-w-sm mb-12">
+        <div className="flex flex-col h-full order-2 md:order-1 relative min-h-0 pt-0 md:pt-2 lg:pr-12 gap-8 md:gap-0">
+          <motion.div
+            initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUpVariant}
+            className="w-full h-[40vh] md:h-[45%] lg:h-[50%] relative shrink-0"
+          >
             <img
-              src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?q=80&w=800&auto=format&fit=crop"
-              alt="Minimalist interior"
-              className="w-full h-[40vh] md:h-[30vh] object-cover mb-8"
+              src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?q=80&w=2800&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+              alt="Minimalist armchair next to structural components"
+              className="w-full h-full object-cover filter contrast-[0.85] brightness-[0.85] sepia-[0.1]"
             />
-            <h3 className="text-xs tracking-[0.2em] font-semibold mb-3">LUXURY & INTIMACY</h3>
-            <p className="text-sm leading-relaxed opacity-80">
-              Transforming spaces into deeply personal sanctuaries. Our approach blends raw materials with refined geometry to create environments that breathe.
+          </motion.div>
+
+          <motion.div
+            initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUpVariant}
+            className="w-full max-w-sm lg:max-w-md mt-auto shrink-0 pb-0 md:pb-2"
+          >
+            <h3 className="text-sm md:text-base tracking-[0.2em] font-bold mb-4 md:mb-6 text-[#1C1B1A] uppercase">LUXURY & INTIMACY</h3>
+            <p className="text-sm md:text-base lg:text-lg tracking-wide leading-[1.8] opacity-75 font-medium">
+              We transform residential and commercial spaces into refined
+              environments where every detail speaks to timeless elegance and
+              sophisticated living.
             </p>
-          </div>
-        </motion.div>
+          </motion.div>
+        </div>
 
         {/* Right Column */}
-        <div className="flex flex-col order-1 md:order-2 h-full">
-          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUpVariant} className="mb-4 mt-8 md:mt-0">
-            <h1 className="text-5xl md:text-[8rem] leading-[0.9] font-serif uppercase tracking-tight">PURE<br />SPACE.</h1>
-            <p className="text-[10px] tracking-[0.2em] mt-6 md:mt-2 opacity-70">COSTA MESA — 2007</p>
+        <div className="flex flex-col h-full order-1 md:order-2 min-h-0 gap-8 md:gap-0">
+          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUpVariant} className="shrink-0 mb-0 md:mb-10 lg:ml-[-1rem]">
+            <h1 className="text-6xl sm:text-7xl md:text-[5rem] lg:text-[6.5rem] xl:text-[7.5rem] leading-[0.95] md:leading-[0.9] font-serif uppercase tracking-normal text-[#1C1B1A] font-light mt-[-0.1em]">PURE<br />SPACE.</h1>
+            <p className="text-[10px] tracking-[0.2em] mt-6 font-bold text-[#1C1B1A] opacity-80 uppercase">Coimbatore — 2007</p>
           </motion.div>
 
           <motion.div
@@ -88,21 +96,23 @@ const Hero = () => {
             whileInView={{ opacity: 1, scale: 1 }}
             transition={{ duration: 1 }}
             viewport={{ once: true }}
-            className="flex-1 relative mt-12 w-full max-w-lg md:ml-auto"
+            className="relative w-full h-[50vh] md:h-auto flex-1 min-h-0"
           >
-            {/* Background UI Element */}
-            <div className="absolute -left-12 md:-left-24 top-1/4 h-[120%] w-[1px] bg-gray-300 pointer-events-none hidden md:block">
-              <div className="absolute left-1/2 -translate-x-1/2 top-1/3 w-20 h-20 rounded-full border border-gray-300" />
-            </div>
+            {/* Background UI Element - overlapping the left edge */}
+            <div className="absolute -left-12 md:-left-16 bottom-[30%] w-24 h-24 md:w-32 md:h-32 rounded-full border border-black/15 z-10 hidden md:block"></div>
 
             <img
-              src="https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?q=80&w=800&auto=format&fit=crop"
-              alt="Architectural detail"
-              className="w-full h-[60vh] object-cover"
+              src="https://images.unsplash.com/photo-1631509824910-82791a0e43d1?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwcm9maWxlLXBhZ2V8MzF8fHxlbnwwfHx8fHw%3D"
+              alt="Structural concrete wall and botanical vase"
+              className="w-full h-full object-cover relative z-0 filter contrast-[0.85] brightness-[0.9] sepia-[0.05]"
             />
           </motion.div>
         </div>
+      </div>
 
+      {/* Scroll Down Footer */}
+      <div className="w-full border-t border-black/10 py-5 shrink-0 flex justify-between items-center text-[10px] tracking-[0.2em] font-bold text-[#1C1B1A] uppercase opacity-80 mt-8 md:mt-0">
+        <span>SCROLL DOWN</span>
       </div>
     </section>
   );
@@ -303,8 +313,8 @@ const Footer = () => {
       </div>
 
       <div className="flex flex-col items-start md:items-end w-full md:w-auto space-y-2 text-[10px] tracking-widest opacity-60 uppercase">
-        <p>© 2026 PURE SPACE.</p>
-        <p>COSTA MESA, CALIFORNIA</p>
+        <p>© 2026 PURESPACE.</p>
+        <p>Coimbatore, Tamil Nadu</p>
       </div>
     </footer>
   );
