@@ -204,7 +204,7 @@ const Awards = () => {
         {awards.map((award, idx) => (
           <div
             key={idx}
-            className="group border-t border-hairline py-8 flex flex-col md:flex-row justify-between items-start md:items-center relative cursor-pointer"
+            className="group py-8 flex flex-col md:flex-row justify-between items-start md:items-center relative cursor-pointer"
             onMouseEnter={() => setHoveredIndex(idx)}
             onMouseLeave={() => setHoveredIndex(null)}
           >
@@ -246,13 +246,13 @@ const Blog = () => {
   const posts = [
     { title: "TIMELESS DESIGN: HOW WE APPROACH INTERIORS", date: "FEB 12, 2026", img: "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?q=80&w=800&auto=format&fit=crop" },
     { title: "THE PSYCHOLOGY OF NEGATIVE SPACE", date: "JAN 28, 2026", img: "https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?q=80&w=800&auto=format&fit=crop" },
-    { title: "MATERIALITY: STONE, WOOD, AND STEEL", date: "JAN 10, 2026", img: "https://images.unsplash.com/photo-1600210491892-03e547b3eb6c?q=80&w=800&auto=format&fit=crop" },
+    { title: "MATERIALITY: STONE, WOOD, AND STEEL", date: "JAN 10, 2026", img: "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?q=80&w=800&auto=format&fit=crop" },
   ];
 
   return (
     <section id="blog" className="px-8 py-24 pb-32 border-t border-hairline">
-      <div className="flex justify-between items-center border-b border-hairline pb-8 mb-12">
-        <h2 className="text-2xl md:text-4xl font-serif">BLOG</h2>
+      <div className="flex justify-between items-center pb-8 mb-12">
+        <h2 className="text-6xl md:text-8xl font-serif">BLOG</h2>
         <div className="flex space-x-4">
           <button className="w-10 h-10 rounded-full border border-hairline flex items-center justify-center hover:bg-[#1C1B1A] hover:text-[#EAE8E3] transition-colors">
             <ChevronLeft size={16} />
